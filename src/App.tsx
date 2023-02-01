@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import projects from './data/projects.json'
 
 function App() {
+  // Define state
+  const [value, setCards] = useState<string[]>([]);
+  
+  // Set state
+  useEffect(()=>{
+    let newArr: string[] = [];
+  
+    projects.forEach((element, index) => {
+      newArr.push(projects[index].title);
+    });
+  
+    setCards(newArr);
+
+  })
+
+
+  // Define card
+  const Card = (props: {title: string[]}) => (
+    <div className='card'>
+      <h1>{props.title}</h1>
+    </div>
+  );
+
+  // Render multiple cards
+  const renderCards = () => {
+    // setCardState()
+    // console.log(value);
+      return <Card title={value}/>
+  }
+
   return (
     <div className="App">
 
@@ -28,6 +59,7 @@ function App() {
         <li>Skills</li>
       </ul>
 
+      {renderCards()}
     </div>
   );
 }
